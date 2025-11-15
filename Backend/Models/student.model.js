@@ -27,7 +27,7 @@ createdAt : {
     type: Date,
     default: Date.now
 },
-advisor : {type : mongoose.Schema.Types.ObjectId, ref : "Staff"},
+advisor : {type : mongoose.Schema.Types.ObjectId, ref : "Doctor"},
 courses :[{type: mongoose.Schema.Types.ObjectId, ref: "Course"}],
 level :{Type : String},
 department: {String},
