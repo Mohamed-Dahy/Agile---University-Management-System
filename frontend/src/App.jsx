@@ -8,21 +8,23 @@ import Login from "./pages/Login";
 import NotFound from "./pages/NotFound";
 import Signup from "./pages/Signup";
 
-
+import AdminDashboard from "./pages/admin/dashboard";
 
 function App() {
   return (
     <Routes>
-      {/* Routes that use the main layout + navbar */}
+
+      {/* USER PAGES that should include the Main Layout */}
       <Route element={<MainLayout />}>
         <Route path="/" element={<Home />} />
         <Route path="/facilities" element={<Facilities />} />
         <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
       </Route>
 
-      {/* Standalone route (without layout if you want a clean login page) */}
-      <Route path="/login" element={<Login />} />
-      <Route path="/signup" element={<Signup />} />
+      {/* ADMIN PAGES */}
+      <Route path="/admin/dashboard" element={<AdminDashboard />} />
 
       {/* 404 */}
       <Route path="*" element={<NotFound />} />

@@ -3,13 +3,26 @@ import { apiClient } from "./apiClient";
 
 const LOGIN_URL = "/student/signin";
 const REGISTER_URL = "/student/signup";
+const ADMIN_LOGIN_URL = "/admin/signinAdmin";
 
-export async function loginUser(credentials) {
+async function loginUser(credentials) {
+
+  if(credentials.email.toLowerCase().includes('@admin')){
+    console.log("Admin login detected")
+    const response = await apiClient.post(ADMIN_LOGIN_URL, credentials);
+    return response.data;
+  }
+
+  console.log("user login detected")
   const response = await apiClient.post(LOGIN_URL, credentials);
   return response.data;
 }
 
-export async function registerUser(data) {
+async function registerUser(data) {
   const response = await apiClient.post(REGISTER_URL, data);
   return response.data;
+}
+
+export{
+  loginUser, registerUser
 }

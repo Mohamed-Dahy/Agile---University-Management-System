@@ -12,6 +12,11 @@ const signUp = async(req,res)=>{
         if(password !== confirmpassword){
             return res.status(400).json({message : "Passwords do not match"});
         }   
+
+        if (email.toLowerCase().includes("@admin")) {
+            return res.status(400).json({ message: "You cannot use an email that contains '@admin'" });
+        }
+
         let existingstudent = await Student.findOne({email:email});
         if(existingstudent){
             return res.status(400).json({message : "Student with this email already exists"});
@@ -24,7 +29,7 @@ const signUp = async(req,res)=>{
 
 
         const token = JWT.sign(
-            { password: newStudent.password, username: newStudent.username }, 
+            { id: newStudent._id, username: newStudent.username }, 
             process.env.JWT_SECRET, 
             { expiresIn: process.env.JWT_EXPIRATION });
 
@@ -38,6 +43,7 @@ const signUp = async(req,res)=>{
 
     }
 }
+
 const signIn = async(req,res) => {
     try{
         const {email , password} = req.body;
@@ -54,7 +60,7 @@ const signIn = async(req,res) => {
         }
 
         const token = JWT.sign(
-            { username: student.username, password: student.password },
+            { id: student._id, username: student.username },
             process.env.JWT_SECRET,
             { expiresIn: process.env.JWT_EXPIRATION }
         );

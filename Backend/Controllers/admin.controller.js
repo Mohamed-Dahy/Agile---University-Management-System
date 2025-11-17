@@ -3,7 +3,7 @@ const Admin = require("../Models/admin.model");
 const JWT = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 
-// const signUp = async(req,res)=>{     to create an admin only then delete it  the admins don't sign up in website
+// const signUp = async(req,res)=>{     // to create an admin only then delete it  the admins don't sign up in website
 //     try{   
 //         let {username,email,password,confirmpassword} = req.body;
 //         if(!username || !email || !password || !confirmpassword){
@@ -45,15 +45,15 @@ const signIn = async(req,res) => {
         }
         const admin = await Admin.findOne({email:email});
         if(!admin){
-            return res.status(400).json({message: "Invalid email or password"});
+            return res.status(401).json({message: "Invalid email or password"});
         }
         const isMatch = await bcrypt.compare(password , admin.password)
         if(!isMatch){
-            return res.status(400).json({message: "Invalid email or password"});
+            return res.status(402).json({message: "Invalid email or password"});
         }
 
         const token = JWT.sign(
-            { username: admin.username, password: admin.password },
+            { id: admin._id, username: admin.username },
             process.env.JWT_SECRET,
             { expiresIn: process.env.JWT_EXPIRATION }
         );

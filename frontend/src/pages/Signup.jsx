@@ -1,7 +1,9 @@
 import { useState } from "react";
 import { registerUser } from "../services/authService";
+import {useNavigate} from 'react-router-dom'
 
 function Signup() {
+  const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -25,6 +27,8 @@ function Signup() {
       });
 
       setStatus("Account created successfully!");
+      navigate("/login");
+
     } catch (err) {
       const msg =
         err?.response?.data?.message ||

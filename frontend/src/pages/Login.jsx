@@ -1,10 +1,13 @@
 import { useState } from "react";
 import { loginUser } from "../services/authService";
+import { useNavigate } from "react-router-dom";
 
 function Login() {
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [status, setStatus] = useState("");
+
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -13,6 +16,13 @@ function Login() {
     try {
       const data = await loginUser({ email, password });
       setStatus("Login successful!");
+      const adminCheck = data.data.user.email.toLowerCase().includes('@admin');
+
+      if (adminCheck) {
+        navigate("/admin/dashboard");
+      } else {
+        navigate("/");
+      }
     } catch (err) {
       const msg =
         err?.response?.data?.message ||
@@ -52,9 +62,8 @@ function Login() {
 
       {status && (
         <p
-          className={`auth-status ${
-            status.includes("successful") ? "success" : "error"
-          }`}
+          className={`auth-status ${status.includes("successful") ? "success" : "error"
+            }`}
         >
           {status}
         </p>
