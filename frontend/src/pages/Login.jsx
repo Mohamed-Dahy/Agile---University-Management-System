@@ -17,7 +17,6 @@ function Login() {
       // data = { status, data: { user }, token }
 
       setStatus("Login successful!");
-
       // save token (optional but useful)
       if (data.token) {
         localStorage.setItem("token", data.token);
@@ -25,11 +24,17 @@ function Login() {
       localStorage.setItem("email", data.data.user.email);
 
       const isAdmin = data.data.user.email.toLowerCase().includes("@admin");
+      const studentCheck = data.data.user.email.toLowerCase().includes("@ums-student");
 
       if (isAdmin) {
         // ✅ ADMIN REDIRECT HERE
         navigate("/admin/dashboard");
-      } else {
+      } 
+      else if(studentCheck){
+        // localStorage.setItem("token" , data.data.token);
+        navigate("/student/");
+      }
+      else {
         navigate("/");
       }
     } catch (err) {
