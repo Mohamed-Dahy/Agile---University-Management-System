@@ -16,11 +16,21 @@ function Login() {
     try {
       const data = await loginUser({ email, password });
       setStatus("Login successful!");
+
+      localStorage.setItem("studentId" , data.data.user._id);
+      localStorage.setItem("student" , data.data.user);
+      
       const adminCheck = data.data.user.email.toLowerCase().includes('@admin');
+      const studentCheck = data.data.user.email.toLowerCase().includes("@ums-student");
 
       if (adminCheck) {
         navigate("/admin/dashboard");
-      } else {
+      } 
+      else if(studentCheck){
+        // localStorage.setItem("token" , data.data.token);
+        navigate("/student/");
+      }
+      else {
         navigate("/");
       }
     } catch (err) {

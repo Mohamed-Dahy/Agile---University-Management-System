@@ -1,5 +1,7 @@
 import { Routes, Route } from "react-router-dom";
+
 import MainLayout from "./layouts/MainLayout";
+import StudentLayout from "./layouts/StudentLayout";
 
 import Home from "./pages/Home";
 import Facilities from "./pages/Facilities";
@@ -9,6 +11,11 @@ import NotFound from "./pages/NotFound";
 import Signup from "./pages/Signup";
 
 import AdminDashboard from "./pages/admin/dashboard";
+
+
+import StudentDashboard from "./pages/student/Dashboard"
+import StudentHome from "./pages/student/Home"
+
 
 function App() {
   return (
@@ -25,6 +32,13 @@ function App() {
 
       {/* ADMIN PAGES */}
       <Route path="/admin/dashboard" element={<AdminDashboard />} />
+
+      {/* Student PAGES */}
+      <Route path="student" element={<StudentLayout/>} >
+        <Route path="dashboard" element={<StudentDashboard/>} />
+        <Route index element={<StudentHome/>} />
+      </Route>
+
 
       {/* 404 */}
       <Route path="*" element={<NotFound />} />
