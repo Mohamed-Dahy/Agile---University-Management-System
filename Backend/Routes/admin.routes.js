@@ -16,12 +16,33 @@ router.route('/classrooms/:id')
   .patch(adminController.updateClassroom)
   .delete(adminController.deleteClassroom);
 
+
+  router.route('/classrooms/:id/status')
+.get(adminController.getClassroomStatus)
+
+//==================== courses
+
+
 router.route("/courses")
 .post(adminController.createCourse)
 
-
 router.route("/courses/:id")
-.delete(adminController.deleteCourse);
+.delete(adminController.deleteCourse)
+.patch(adminController.updateCourse)
+
+
+
+//==================== assigning functions
+
+router.route('/classroom/:id/assign')
+.post(adminController.assignClassroom)
+.delete(adminController.unassignClassroom)
+
+router.route('/courses/:id/doctor')
+.post(adminController.assignCourseToDoctor)
+.delete(adminController.unassignCourseFromDoctor)
+
+
 
 
 

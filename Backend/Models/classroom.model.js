@@ -18,7 +18,7 @@ const classroomSchema = new mongoose.Schema({
         enum: ["hall", "lab"],
         required: [true, "Type is required"]
     },
-    availabilitySchedule: {
+    bookedSchedule: {
         type: [String],  // ["Mon 09:00-11:00", "Wed 14:00-16:00", "Fri 08:00-10:00"]
         default: []
     },
@@ -26,13 +26,13 @@ const classroomSchema = new mongoose.Schema({
         type: Date,
         default: Date.now
     },
-    isbooked: {
+    isWorking: {
         type: Boolean,
-        default: false
+        default: true
     },
     requested_by: [{                
         type: mongoose.Schema.Types.ObjectId,
-        ref: "Doctors",
+        ref: "Doctor",
     }]
     });
 
