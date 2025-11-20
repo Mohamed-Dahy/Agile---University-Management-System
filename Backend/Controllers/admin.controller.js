@@ -228,7 +228,8 @@ const updateCourse = async (req, res) => {
 
 const assignClassroom = async (req, res) => {
     try {
-        const { timeSlot, doctorId, classroomId } = req.body;
+        const { timeSlot, doctorId } = req.body;
+        const classroomId = req.params.id;
 
         if (!timeSlot || !doctorId || !classroomId) {
             return res.status(400).json({
@@ -271,7 +272,8 @@ const assignClassroom = async (req, res) => {
 
 const unassignClassroom = async (req, res) => {
     try {
-        const { timeSlot, doctorId, classroomId } = req.body;
+        const { timeSlot, doctorId } = req.body;
+        const classroomId = req.params.id;
 
         if (!timeSlot || !doctorId || !classroomId) {
             return res.status(400).json({
@@ -317,7 +319,8 @@ const unassignClassroom = async (req, res) => {
 
 const assignCourseToDoctor = async (req, res) => {
     try {
-        const { courseId, doctorId } = req.body;
+        const courseId = req.params.id;
+        const { doctorId } = req.body;
 
         if (!courseId || !doctorId) {
             return res.status(400).json({ status: "fail", message: "course ID and Doctor Id is required" })
@@ -350,7 +353,8 @@ const assignCourseToDoctor = async (req, res) => {
 
 const unassignCourseFromDoctor = async (req, res) => {
     try {
-        const { courseId, doctorId } = req.body;
+        const courseId = req.params.id;
+        const { doctorId } = req.body;
 
         if (!courseId || !doctorId) {
             return res.status(400).json({ status: "fail", message: "course ID and Doctor Id is required" })
@@ -367,12 +371,12 @@ const unassignCourseFromDoctor = async (req, res) => {
             return res.status(404).json({ status: "fail", message: "Doctor not found" })
         }
 
-        if(!doctor.courses.includes(courseId)){
+        if (!doctor.courses.includes(courseId)) {
             return res.status(400).json({ status: "fail", message: "This course is not assigned to this doctor" })
         }
 
         const courseIndex = doctor.courses.indexOf(courseId)
-        doctor.courses.splice(courseIndex,1);
+        doctor.courses.splice(courseIndex, 1);
         await doctor.save()
         res.status(200).json({ status: "success", data: doctor })
 
