@@ -39,13 +39,12 @@ const classroomSchema = new mongoose.Schema({
     required: [true, "Type is required"],
   },
 
-  // ✅ NEW: full schedule with doctor per slot
+ 
   timeSlots: {
     type: [timeSlotSchema],
     default: [],
   },
 
-  // your existing fields (keep them)
   bookedSchedule: {
     type: [String],
     default: [],
