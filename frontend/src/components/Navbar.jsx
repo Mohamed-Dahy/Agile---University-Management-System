@@ -6,7 +6,9 @@ function Navbar() {
 
   return (
     <header className="navbar">
-      <div className="navbar-logo">UMS</div>
+      <NavLink to="/" className="navbar-logo">
+        UMS
+      </NavLink>
       <nav className="navbar-links">
         <NavLink to="/" className={linkClass}>
           Home

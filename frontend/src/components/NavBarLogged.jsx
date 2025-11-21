@@ -6,7 +6,9 @@ function NavBarLogged() {
 
   return (
     <header className="navbar">
-      <div className="navbar-logo">UMS</div>
+      <NavLink to="/student/" className="navbar-logo">
+        UMS
+      </NavLink>
       <nav className="navbar-links">
         <NavLink to="/student/" end className={linkClass}>
           Home
